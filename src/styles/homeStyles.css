@@ -1,0 +1,187 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #2c3e50;
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+header {
+  font-size: 36px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  position: relative;
+  font-family: Open Sans, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.25;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align items to the start and end of the container */
+}
+.logo-group {
+  display: flex;
+  align-items: center;
+}
+.nav-group {
+  flex-grow: 1; /* Allow the navigation links to take available space */
+  display: flex;
+  justify-content: center;
+}
+
+.nav-link {
+  margin: 0 10px; /* Adjust the margin value as needed */
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+}
+.nav-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: grey;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+.button-group {
+  display: flex;
+  align-items: center;
+}
+.LibDemLogo {
+  max-width: 263px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column; /* Stack text vertically */
+  }
+
+.lib-dem {
+  font-weight: bold; /* Adjust the font weight as needed */
+  font-size: 18px;   /* Adjust the font size as needed */
+  }
+
+.muslim-forum {
+  font-weight: normal; /* Adjust the font weight as needed */
+  font-size: 14px;     /* Adjust the font size as needed */
+  }
+
+.ldmfLogo {
+  max-width: 163px;
+}
+
+.subtext {
+  font-size: 17px;
+  text-align: center;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+  font-family: Open Sans, sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.25;
+}
+
+.styled-button {
+  margin-right: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  width: 200px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #db9834;
+  color: rgb(3, 1, 1);
+  border: 2px solid #db9834;
+  border-radius: 5px;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+.styled-button:hover {
+  background-color: #aa6710;
+}
+
+.styled-button:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+.search-button-image {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+/* Add this style for the search button image */
+.search-button-image:hover {
+  /* Use the shake keyframe animation */
+  animation: shake 0.5s;
+}
+
+  /* Define the shake keyframe animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  100% { transform: translateX(3px); }
+  }
+
+
+nav {
+  display: flex;
+}
+
+nav router-link {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+nav router-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+main {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+.image-container {
+display: flex;
+justify-content: space-between; /* Adjust spacing between images */
+margin-top: 20px; /* Add margin as needed */
+}
+
+.gallery-image {
+  transition: transform 0.5s ease;
+  max-width: 30%; /* Adjust the width of each image */
+  border-radius: 8px; /* Add border-radius for a rounded look */
+}
+
+.gallery-image:hover {
+  transform: scale(1.05); /* Increase image size on hover */
+}
+
+.news-article {
+width: 30%; /* Adjust the width of each news article */
+text-align: center;
+}
+
+.news-image {
+max-width: 100%; /* Ensure the image fits within the canvas */
+border-radius: 8px; /* Add border-radius for a rounded look */
+}
+
+a {
+  color: #aa6710;
+  text-decoration: none;
+}
