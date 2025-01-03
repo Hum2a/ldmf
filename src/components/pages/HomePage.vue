@@ -92,13 +92,14 @@ export default {
   methods: {
     async fetchLatestNews() {
       try {
+        const apiKey = process.env.APP_NEWS_API_KEY; 
         const response = await axios.get("https://newsapi.org/v2/everything", {
           params: {
             q: "Liberal Democrats",
             language: "en",
             sortBy: "publishedAt",
             pageSize: 3, // Fetch top 3 most recent articles
-            apiKey: "618a242afb714a61a5dfe90f0d6ebc11", // Replace with your API key
+            apiKey,
           },
         });
 

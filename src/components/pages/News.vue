@@ -54,11 +54,12 @@ export default {
   methods: {
     async fetchArticles() {
       try {
+        const apiKey = process.env.APP_NEWS_API_KEY; 
         const response = await axios.get("https://newsapi.org/v2/everything", {
           params: {
             q: "Liberal Democrats",
             language: "en",
-            apiKey: "618a242afb714a61a5dfe90f0d6ebc11", // Replace with your News API key
+            apiKey,
           },
         });
         this.articles = response.data.articles.map((article) => ({
