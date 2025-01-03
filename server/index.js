@@ -37,7 +37,7 @@ app.get("/api/newss", async (req, res) => {
           q: "Liberal Democrats",
           language: "en",
           sortBy: "publishedAt",
-          pageSize: 3,
+          pageSize: 30,
           apiKey: process.env.NEWS_API_KEY,
         },
       });
