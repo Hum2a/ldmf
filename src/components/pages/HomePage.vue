@@ -92,21 +92,7 @@ export default {
   methods: {
     async fetchLatestNews() {
       try {
-        const apiKey = process.env.APP_NEWS_API_KEY; 
-        const response = await axios.get("https://newsapi.org/v2/everything", {
-          headers: {
-            "Upgrade-Insecure-Requests": "1",
-          },
-          params: {
-            q: "Liberal Democrats",
-            language: "en",
-            sortBy: "publishedAt",
-            pageSize: 3, // Fetch top 3 most recent articles
-            apiKey,
-          },
-        });
-
-        // Map response data to simplify usage
+        const response = await axios.get("http://localhost:3000/api/news");
         this.latestNews = response.data.articles.map((article) => ({
           title: article.title,
           description: article.description || "Click to read more.",
@@ -117,6 +103,7 @@ export default {
         console.error("Error fetching latest news:", error);
       }
     },
+
   },
 };
 </script>
