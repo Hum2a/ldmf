@@ -1,11 +1,17 @@
 const express = require("express");
 const axios = require("axios");
+const cors = require("cors");
 const dotenv = require("dotenv");
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+// Allow specific origins or all origins
+app.use(cors({
+  origin: "https://ldmf.onrender.com", // Replace with your frontend domain
+  methods: ["GET"], // Specify allowed HTTP methods
+}));
 
 app.get("/api/news", async (req, res) => {
   try {
@@ -18,10 +24,11 @@ app.get("/api/news", async (req, res) => {
         apiKey: process.env.NEWS_API_KEY,
       },
     });
-    res.json(response.data); // Send the news articles back to the frontend
+    res.json(response.data);
   } catch (error) {
     res.status(error.response?.status || 500).send(error.message);
   }
 });
 
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
