@@ -92,7 +92,7 @@ export default {
   methods: {
     async fetchLatestNews() {
       try {
-        const response = await axios.get("http://localhost:3000/api/news");
+        const response = await axios.get("https://lib-dem-news-server.onrender.com/api/news");
         this.latestNews = response.data.articles.map((article) => ({
           title: article.title,
           description: article.description || "Click to read more.",
