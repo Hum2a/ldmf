@@ -54,22 +54,15 @@ export default {
   methods: {
     async fetchArticles() {
       try {
-        const apiKey = process.env.APP_NEWS_API_KEY; 
-        const response = await axios.get("https://newsapi.org/v2/everything", {
-          params: {
-            q: "Liberal Democrats",
-            language: "en",
-            apiKey,
-          },
-        });
-        this.articles = response.data.articles.map((article) => ({
+        const response = await axios.get("https://lib-dem-news-server.onrender.com/api/news");
+        this.latestNews = response.data.articles.map((article) => ({
           title: article.title,
-          description: article.description,
+          description: article.description || "Click to read more.",
           url: article.url,
-          image: article.urlToImage,
+          image: article.urlToImage || "../../assets/placeholder-image.jpg",
         }));
       } catch (error) {
-        console.error("Error fetching news articles:", error);
+        console.error("Error fetching latest news:", error);
       }
     },
   },
