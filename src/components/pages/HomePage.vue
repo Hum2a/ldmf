@@ -95,7 +95,7 @@ export default {
         const apiKey = process.env.APP_NEWS_API_KEY; 
         const response = await axios.get("https://newsapi.org/v2/everything", {
           headers: {
-            "User-Agent": "Mozilla/5.0 (compatible; MyApp/1.0)",
+            "Upgrade-Insecure-Requests": "1",
           },
           params: {
             q: "Liberal Democrats",
