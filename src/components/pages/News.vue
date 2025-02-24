@@ -12,20 +12,89 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero gradient-background">
-      <h1>Latest News</h1>
-      <p>Stay updated with the latest from the Liberal Democrats.</p>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="animated-title">Latest News</h1>
+        <p class="hero-subtitle">Stay informed with updates from the Liberal Democrats Muslim Forum</p>
+        <div class="search-bar">
+          <input type="text" v-model="searchQuery" placeholder="Search news articles..." />
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
     </section>
 
-    <!-- News Articles Section -->
-    <section class="news-articles">
-      <h2>Recent Articles</h2>
-      <div class="articles-grid">
-        <div v-for="article in articles" :key="article.url" class="article-card">
-          <img :src="article.image || '../../assets/placeholder-image.jpg'" alt="Article Image" class="article-image" />
-          <h3>{{ article.title }}</h3>
-          <p>{{ article.description }}</p>
-          <a :href="article.url" target="_blank" class="read-more">Read More</a>
+    <!-- News Categories -->
+    <section class="categories-section">
+      <div class="container">
+        <div class="category-tabs">
+          <button 
+            v-for="category in categories" 
+            :key="category"
+            :class="['category-button', { active: currentCategory === category }]"
+            @click="currentCategory = category"
+          >
+            {{ category }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="featured-article" v-if="featuredArticle">
+      <div class="container">
+        <div class="featured-content">
+          <div class="featured-image">
+            <img :src="featuredArticle.image || require('../../assets/logos/bird-only-logo.png')" :alt="featuredArticle.title" />
+            <div class="featured-tag">Featured</div>
+          </div>
+          <div class="featured-text">
+            <span class="article-date">{{ formatDate(featuredArticle.publishedAt) }}</span>
+            <h2>{{ featuredArticle.title }}</h2>
+            <p>{{ featuredArticle.description }}</p>
+            <a :href="featuredArticle.url" target="_blank" class="read-more">
+              Read Full Article <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Grid -->
+    <section class="news-grid">
+      <div class="container">
+        <div class="articles-grid">
+          <article 
+            v-for="article in filteredArticles" 
+            :key="article.url" 
+            class="article-card"
+            @click="openArticle(article.url)"
+          >
+            <div class="article-image">
+              <img :src="article.image || require('../../assets/logos/bird-only-logo.png')" :alt="article.title" />
+              <div class="article-category">{{ article.category }}</div>
+            </div>
+            <div class="article-content">
+              <span class="article-date">{{ formatDate(article.publishedAt) }}</span>
+              <h3>{{ article.title }}</h3>
+              <p>{{ article.description }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-content">
+          <h2>Stay Updated</h2>
+          <p>Subscribe to our newsletter for the latest news and updates</p>
+          <div class="newsletter-form">
+            <input type="email" v-model="email" placeholder="Enter your email address" />
+            <button @click="subscribeNewsletter" class="subscribe-button">
+              Subscribe <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -33,7 +102,6 @@
     <!-- Footer -->
     <footer class="footer">
       <p>&copy; {{ new Date().getFullYear() }} Liberal Democrats Muslim Forum. All rights reserved.</p>
-      <a href="https://www.libdems.org.uk/" target="_blank" rel="noopener noreferrer">Liberal Democrats Official Website</a>
     </footer>
   </div>
 </template>
@@ -46,135 +114,313 @@ export default {
   data() {
     return {
       articles: [],
+      searchQuery: "",
+      currentCategory: "All",
+      categories: ["All", "Politics", "Community", "Events", "Press Releases"],
+      email: "",
+      featuredArticle: null
     };
   },
-  mounted() {
-    this.fetchArticles();
+  computed: {
+    filteredArticles() {
+      let filtered = this.articles;
+      
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase();
+        filtered = filtered.filter(article => 
+          article.title.toLowerCase().includes(query) ||
+          article.description.toLowerCase().includes(query)
+        );
+      }
+
+      if (this.currentCategory !== "All") {
+        filtered = filtered.filter(article => article.category === this.currentCategory);
+      }
+
+      return filtered;
+    }
   },
   methods: {
     async fetchArticles() {
       try {
-        const response = await axios.get("https://lib-dem-news-server.onrender.com/api/newss");
-        this.latestNews = response.data.articles.map((article) => ({
+        const response = await axios.get("https://lib-dem-news-server.onrender.com/api/news");
+        this.articles = response.data.articles.map(article => ({
           title: article.title,
           description: article.description || "Click to read more.",
           url: article.url,
-          image: article.urlToImage || "../../assets/placeholder-image.jpg",
+          image: article.urlToImage,
+          publishedAt: article.publishedAt,
+          category: this.assignCategory(article)
         }));
+
+        if (this.articles.length > 0) {
+          this.featuredArticle = this.articles[0];
+          this.articles = this.articles.slice(1);
+        }
       } catch (error) {
-        console.error("Error fetching latest news:", error);
+        console.error("Error fetching news:", error);
       }
     },
+    formatDate(dateString) {
+      return new Date(dateString).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    },
+    assignCategory() {
+      // Simple category assignment logic - can be enhanced
+      const categories = this.categories.slice(1);
+      return categories[Math.floor(Math.random() * categories.length)];
+    },
+    openArticle(url) {
+      window.open(url, '_blank');
+    },
+    subscribeNewsletter() {
+      // Implement newsletter subscription logic
+      console.log('Newsletter subscription:', this.email);
+      this.email = "";
+    }
   },
+  mounted() {
+    this.fetchArticles();
+  }
 };
 </script>
 
 <style scoped>
-#news-page {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-  background-color: #f9f9f9;
-  text-align: center;
-}
-
-/* Header Section */
-.header-container {
-  padding: 20px;
-  background: #ffcc00;
+.hero {
+  height: 60vh;
+  background: linear-gradient(135deg, #FDBB30, #FFE5A8);
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  position: relative;
 }
 
-.LibDemLogo {
-  max-width: 180px;
+.animated-title {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
 }
 
-.logo-text {
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards 0.3s;
+}
+
+.search-bar {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards 0.6s;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1.5rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar i {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.category-tabs {
   display: flex;
-  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
 }
 
-.lib-dem {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
+.category-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  background: #f5f5f5;
+  color: #666;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.muslim-forum {
-  font-size: 18px;
-  color: #000;
+.category-button.active {
+  background: #000000;
+  color: #FDBB30;
 }
 
-/* Hero Section */
-.hero {
-  padding: 60px;
-  background: linear-gradient(135deg, #ffcc00, #ffe600);
-  color: #000;
+.featured-article {
+  padding: 4rem 0;
 }
 
-/* News Articles Section */
-.news-articles {
-  padding: 40px;
-  background: #fff;
+.featured-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.featured-image {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.featured-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.featured-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #FDBB30;
+  color: #000000;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-weight: 600;
+}
+
+.article-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-image {
+  position: relative;
+  height: 200px;
+}
+
+.article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-category {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #000000;
+  color: #FDBB30;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.article-content {
+  padding: 1.5rem;
+}
+
+.article-date {
+  color: #666;
+  font-size: 0.9rem;
 }
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
 }
 
-.article-card {
+.newsletter-section {
+  background: linear-gradient(135deg, #FDBB30, #FFE5A8);
+  padding: 4rem 0;
   text-align: center;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.article-image {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 15px;
+.newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 2rem auto 0;
 }
 
-.article-card h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
+.newsletter-form input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
 }
 
-.article-card p {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 15px;
+.subscribe-button {
+  padding: 1rem 2rem;
+  background: #000000;
+  color: #FDBB30;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.read-more {
-  color: #ffcc00;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.subscribe-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.read-more:hover {
-  color: #ffe600;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Footer */
-.footer {
-  padding: 20px;
-  background: #000;
-  color: #ffe600;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.footer a {
-  color: #ffe600;
-  text-decoration: none;
-  font-weight: bold;
-}
+@media (max-width: 768px) {
+  .animated-title {
+    font-size: 2.5rem;
+  }
 
-.footer a:hover {
-  color: #fff;
+  .featured-content {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
 }
 </style>

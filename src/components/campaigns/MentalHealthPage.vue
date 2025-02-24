@@ -11,80 +11,124 @@
         </div>
       </header>
   
-      <!-- Hero Section with Animated Background -->
-      <section class="hero gradient-background">
+      <!-- Hero Section with Parallax -->
+      <section class="hero">
+        <div class="parallax-bg"></div>
         <div class="hero-content">
-          <h1>Supporting Mental Health</h1>
-          <p>Our dedication to prioritizing mental health and ensuring access to the care everyone deserves.</p>
-          <button class="cta-button">Learn More</button>
+          <h1 class="animated-title">Mental Health Matters</h1>
+          <p class="hero-subtitle">Supporting mental wellbeing and ensuring access to quality care</p>
+          <div class="hero-stats">
+            <div class="stat-item" v-for="(stat, index) in stats" :key="index">
+              <div class="stat-number">
+                <span class="counter">{{ stat.value }}</span>{{ stat.unit }}
+              </div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          </div>
+          <button class="cta-button pulse-animation">Take Action Now</button>
         </div>
-        <div class="animated-background"></div>
+        <div class="scroll-indicator">
+          <div class="mouse"></div>
+          <span>Scroll to explore</span>
+        </div>
       </section>
   
-      <!-- About the Campaign with Enhanced Presentation -->
-      <section class="campaign-details">
-        <h2>About the Campaign</h2>
-        <div class="details-card">
-          <p>
-            The Liberal Democrats are committed to making mental health a national priority. We are working tirelessly to ensure mental health services receive the funding and attention needed to provide proper care and support to everyone.
-          </p>
-        </div>
-      </section>
-  
-      <!-- Key Actions Section with Icons and Grid Layout -->
-      <section class="key-actions">
-        <h2>Key Actions</h2>
-        <div class="actions-grid">
-          <div class="action-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M15 12h3"></path>
-                <path d="M12 9v6"></path>
-                <path d="M9 12H6"></path>
-            </svg>
-            <p>Ensuring mental health funding matches the level of physical health services.</p>
-          </div>
-          <div class="action-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="7" r="4"></circle>
-                <path d="M12 11v9"></path>
-                <path d="M6 20l6-4 6 4"></path>
-            </svg>
-            <p>Reducing waiting times for mental health treatment and increasing accessibility.</p>
-          </div>
-          <div class="action-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 12l10-7 10 7-10 7-10-7z"></path>
-                <path d="M12 22v-4"></path>
-                <path d="M12 15l10-7"></path>
-            </svg>
-            <p>Expanding mental health services in schools to support young people.</p>
-          </div>
-          <div class="action-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="7" r="4"></circle>
-                <path d="M5.5 17H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-1.5"></path>
-            </svg>
-            <p>Providing better support for caregivers and families of those affected by mental health issues.</p>
+      <!-- Key Initiatives Section -->
+      <section class="initiatives">
+        <div class="container">
+          <h2 class="section-title">Our Key Initiatives</h2>
+          <div class="initiatives-grid">
+            <div class="initiative-card" v-for="(initiative, index) in initiatives" :key="index">
+              <div class="initiative-content">
+                <font-awesome-icon :icon="initiative.icon" size="3x" class="initiative-icon" />
+                <h3>{{ initiative.title }}</h3>
+                <p>{{ initiative.description }}</p>
+                <div class="progress-bar">
+                  <div class="progress" :style="{ width: initiative.progress + '%' }"></div>
+                </div>
+                <span class="progress-text">{{ initiative.progress }}% Progress</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
   
-      <!-- Get Involved Section with Animated Button -->
-      <section class="cta-section">
-        <h2>Get Involved</h2>
-        <p>
-          Join us in advocating for better mental health services. Together, we can break the stigma and ensure everyone has access to the support they need.
-        </p>
-        <router-link to="/join">
-          <button class="styled-button pulse-button">Join the Campaign</button>
-        </router-link>
+      <!-- Support Resources -->
+      <section class="resources">
+        <div class="container">
+          <h2 class="section-title">Support Resources</h2>
+          <div class="resources-grid">
+            <div class="resource-card" v-for="(resource, index) in resources" :key="index">
+              <div class="resource-content">
+                <div class="resource-icon">
+                  <font-awesome-icon :icon="resource.icon" size="2x" />
+                </div>
+                <h3>{{ resource.title }}</h3>
+                <p>{{ resource.description }}</p>
+                <button class="resource-button">Learn More</button>
+              </div>
+              <div class="card-overlay"></div>
+            </div>
+          </div>
+        </div>
       </section>
   
-      <!-- Footer Section -->
+      <!-- Success Stories -->
+      <section class="success-stories">
+        <div class="container">
+          <h2 class="section-title">Impact Stories</h2>
+          <div class="stories-grid">
+            <div class="story-card" v-for="(story, index) in stories" :key="index">
+              <div class="story-content">
+                <div class="story-icon">
+                  <font-awesome-icon :icon="story.icon" size="2x" />
+                </div>
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.description }}</p>
+                <button class="story-button">Read More</button>
+              </div>
+              <div class="card-overlay"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Get Involved Section -->
+      <section class="get-involved">
+        <div class="container">
+          <h2 class="section-title">Make a Difference</h2>
+          <div class="involvement-grid">
+            <div class="involvement-card" v-for="(option, index) in involvementOptions" :key="index">
+              <div class="involvement-icon">
+                <font-awesome-icon :icon="option.icon" size="2x" />
+              </div>
+              <h3>{{ option.title }}</h3>
+              <p>{{ option.description }}</p>
+              <button class="involvement-button">Join Now</button>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Newsletter Section -->
+      <section class="newsletter-section">
+        <div class="container">
+          <div class="newsletter-content">
+            <h2>Stay Connected</h2>
+            <p>Join our newsletter to receive updates on mental health initiatives</p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Enter your email" class="email-input" />
+              <button class="subscribe-button">
+                Subscribe
+                <font-awesome-icon icon="paper-plane" class="send-icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+  
       <footer class="footer">
         <p>&copy; {{ new Date().getFullYear() }} Liberal Democrats Muslim Forum. All rights reserved.</p>
-        <a href="https://www.libdems.org.uk/" target="_blank" rel="noopener noreferrer">Liberal Democrats Official Website</a>
       </footer>
     </div>
   </template>
@@ -92,45 +136,127 @@
   <script>
   export default {
     name: "MentalHealthPage",
+    data() {
+      return {
+        stats: [
+          { value: '1M', unit: '+', label: 'People Supported' },
+          { value: '500', unit: '+', label: 'Local Programs' },
+          { value: '24/7', unit: '', label: 'Support Available' }
+        ],
+        initiatives: [
+          {
+            icon: ['fas', 'heart'],
+            title: 'Early Intervention',
+            description: 'Supporting early mental health intervention programs',
+            progress: 75
+          },
+          {
+            icon: ['fas', 'hands-helping'],
+            title: 'Community Support',
+            description: 'Building strong community mental health networks',
+            progress: 65
+          },
+          {
+            icon: ['fas', 'graduation-cap'],
+            title: 'Education & Awareness',
+            description: 'Promoting mental health awareness and education',
+            progress: 85
+          }
+        ],
+        resources: [
+          {
+            icon: ['fas', 'phone'],
+            title: 'Helpline Support',
+            description: '24/7 mental health support helpline'
+          },
+          {
+            icon: ['fas', 'users'],
+            title: 'Support Groups',
+            description: 'Local community support groups'
+          },
+          {
+            icon: ['fas', 'book'],
+            title: 'Resources Library',
+            description: 'Access to mental health resources and guides'
+          }
+        ],
+        stories: [
+          {
+            icon: ['fas', 'star'],
+            title: 'Community Impact',
+            description: 'How our initiatives have helped communities'
+          },
+          {
+            icon: ['fas', 'heart'],
+            title: 'Personal Journeys',
+            description: 'Stories of recovery and support'
+          }
+        ],
+        involvementOptions: [
+          {
+            icon: ['fas', 'hands-helping'],
+            title: 'Volunteer',
+            description: 'Join our volunteer network'
+          },
+          {
+            icon: ['fas', 'donate'],
+            title: 'Donate',
+            description: 'Support our mental health initiatives'
+          },
+          {
+            icon: ['fas', 'bullhorn'],
+            title: 'Raise Awareness',
+            description: 'Help spread mental health awareness'
+          }
+        ]
+      }
+    }
   };
   </script>
   
   <style scoped>
   #mental-health {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    color: #2c3e50;
-    background-color: #f9f9f9;
-    text-align: center;
+    font-family: 'Inter', sans-serif;
+    color: #000000;
   }
   
   /* Header Section */
   .header-container {
     padding: 20px;
-    background: #ffcc00;
+    background: #FDBB30;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
+  .logo-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
   .LibDemLogo {
-    max-width: 180px;
-    margin-right: 10px;
+    height: 50px;
+    width: auto;
   }
   
   .logo-text {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    color: #000000;
   }
   
   .lib-dem {
     font-size: 24px;
     font-weight: bold;
-    color: #000;
+    color: #000000;
   }
   
   .muslim-forum {
     font-size: 18px;
-    color: #000;
+    color: #000000;
   }
   
   /* Hero Section */
@@ -147,23 +273,35 @@
     position: relative;
   }
 
-  .animated-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(270deg, rgba(255, 204, 0, 0.6), rgba(255, 230, 0, 0.6));
-    animation: moveBackground 5s infinite linear;
+  .animated-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 
-  @keyframes moveBackground {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+  .hero-subtitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: #666;
   }
 
   .cta-button {
@@ -184,43 +322,24 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   }
   
-  /* Campaign Details Section */
-  .campaign-details {
-    padding: 40px;
-    background: #fff;
-  }
-
-  .details-card {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .details-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Key Actions Section */
-  .key-actions {
+  /* Key Initiatives Section */
+  .initiatives {
     padding: 40px;
     background: #f9f9f9;
   }
 
-  .key-actions h2 {
+  .section-title {
     font-size: 28px;
     margin-bottom: 20px;
   }
 
-  .actions-grid {
+  .initiatives-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
 
-  .action-item {
+  .initiative-card {
     text-align: center;
     padding: 20px;
     background: #fff;
@@ -229,34 +348,137 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .action-item:hover {
+  .initiative-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   }
 
-  .action-icon {
+  .initiative-icon {
     width: 50px;
     height: 50px;
     margin-bottom: 10px;
   }
   
-  /* CTA Section */
-  .cta-section {
+  /* Support Resources Section */
+  .resources {
     padding: 40px;
-    background: linear-gradient(135deg, #ffe600, #ffcc00);
+    background: #fff;
   }
 
-  .cta-section h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
   }
 
-  .cta-section p {
-    font-size: 16px;
-    margin-bottom: 20px;
+  .resource-card {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .pulse-button {
+  .resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .resource-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Success Stories Section */
+  .success-stories {
+    padding: 40px;
+    background: #f9f9f9;
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .story-card {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .story-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Get Involved Section */
+  .get-involved {
+    padding: 40px;
+    background: #fff;
+  }
+
+  .involvement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .involvement-card {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .involvement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .involvement-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  
+  /* Newsletter Section */
+  .newsletter-section {
+    padding: 40px;
+    background: #f9f9f9;
+  }
+
+  .newsletter-content {
+    text-align: center;
+  }
+
+  .newsletter-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .email-input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px;
+  }
+
+  .subscribe-button {
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
@@ -266,10 +488,9 @@
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    animation: pulse 1.5s infinite;
   }
 
-  .pulse-button:hover {
+  .subscribe-button:hover {
     transform: scale(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   }
@@ -289,5 +510,185 @@
 
   .footer a:hover {
     color: #fff;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInUp 1s ease 0.8s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .mouse {
+    width: 30px;
+    height: 50px;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    margin: 0 auto 1rem;
+    position: relative;
+  }
+
+  .mouse::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #000000;
+    border-radius: 50%;
+    animation: scroll 2s infinite;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+  }
+
+  .initiative-content {
+    text-align: center;
+    padding: 2rem;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    margin: 1rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress {
+    height: 100%;
+    background: #FDBB30;
+    border-radius: 4px;
+    transition: width 1.5s ease-in-out;
+  }
+
+  .progress-text {
+    font-size: 0.9rem;
+    color: #000000;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .resource-content {
+    text-align: center;
+    padding: 2rem;
+    color: #000000;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .resource-button {
+    padding: 0.8rem 1.5rem;
+    background: #FDBB30;
+    color: #000000;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .resource-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(253, 187, 48, 0.3);
+  }
+
+  .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(253, 187, 48, 0.1);
+    border-radius: 15px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .story-button {
+    padding: 0.8rem 1.5rem;
+    background: #FDBB30;
+    color: #000000;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .story-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(253, 187, 48, 0.3);
+  }
+
+  .involvement-button {
+    padding: 0.8rem 1.5rem;
+    background: #FDBB30;
+    color: #000000;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+  }
+
+  .involvement-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(253, 187, 48, 0.3);
+  }
+
+  .send-icon {
+    color: #000000;
+    transition: transform 0.3s ease;
+    margin-left: 0.5rem;
+  }
+
+  @keyframes scroll {
+    0% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+    }
+  }
+
+  /* Add hover effects for cards */
+  .resource-card:hover .card-overlay,
+  .story-card:hover .card-overlay {
+    opacity: 1;
   }
   </style>

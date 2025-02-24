@@ -12,40 +12,139 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="contact-hero gradient-background">
-      <h1>Contact Us</h1>
-      <p>We'd love to hear from you! Reach out to us using any of the contact methods below.</p>
+    <section class="contact-hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="animated-title">Get in Touch</h1>
+        <p class="hero-subtitle">We're here to listen, engage, and collaborate</p>
+      </div>
     </section>
 
-    <!-- Contact Methods Section -->
-    <section class="contact-methods">
-      <div class="contact-card">
-        <h2>Email Us</h2>
-        <p>Have a question? Send us an email, and we'll get back to you as soon as possible.</p>
-        <a href="mailto:info@libdems.org.uk" class="contact-link">info@libdems.org.uk</a>
-      </div>
+    <!-- Contact Form Section -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Information -->
+          <div class="contact-info">
+            <h2 class="section-title">Connect With Us</h2>
+            <div class="info-cards">
+              <div class="info-card">
+                <div class="icon-wrapper">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Visit Us</h3>
+                <p>123 Liberal Way</p>
+                <p>London, UK</p>
+              </div>
 
-      <div class="contact-card">
-        <h2>Call Us</h2>
-        <p>Prefer to speak with someone? Give us a call during business hours.</p>
-        <p class="contact-info">+44 1234 567890</p>
-      </div>
+              <div class="info-card">
+                <div class="icon-wrapper">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p>+44 1234 567890</p>
+                <p>Mon-Fri, 9am-5pm</p>
+              </div>
 
-      <div class="contact-card">
-        <h2>Visit Us</h2>
-        <p>Stop by our office to meet us in person and learn more about our work.</p>
-        <p class="contact-info">123 Liberal Way, London, UK</p>
-      </div>
+              <div class="info-card">
+                <div class="icon-wrapper">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>info@libdems.org.uk</p>
+                <p>We reply within 24hrs</p>
+              </div>
+            </div>
 
-      <div class="contact-card">
-        <h2>Follow Us</h2>
-        <p>Stay connected on social media for the latest updates and events.</p>
-        <div class="social-links">
-          <a href="https://facebook.com/libdems" target="_blank" rel="noopener noreferrer" class="social-link">Facebook</a>
-          <a href="https://twitter.com/libdems" target="_blank" rel="noopener noreferrer" class="social-link">Twitter</a>
-          <a href="https://instagram.com/libdems" target="_blank" rel="noopener noreferrer" class="social-link">Instagram</a>
+            <div class="social-connect">
+              <h3>Follow Us</h3>
+              <div class="social-icons">
+                <a href="#" class="social-icon">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="social-icon">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper">
+            <form @submit.prevent="submitForm" class="contact-form">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  v-model="formData.name"
+                  required
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  v-model="formData.email"
+                  required
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  v-model="formData.subject"
+                  required
+                  class="form-input"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea 
+                  id="message" 
+                  v-model="formData.message"
+                  required
+                  class="form-input"
+                  rows="5"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="submit-button">
+                <span>Send Message</span>
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <div class="map-overlay">
+        <div class="map-card">
+          <h3>Our Location</h3>
+          <p>Visit us at our central London office</p>
+          <button class="direction-button">
+            <i class="fas fa-directions"></i>
+            Get Directions
+          </button>
+        </div>
+      </div>
+      <!-- Add your map component or iframe here -->
     </section>
 
     <!-- Footer Section -->
@@ -59,15 +158,44 @@
 <script>
 export default {
   name: "ContactUs",
+  data() {
+    return {
+      formData: {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      }
+    }
+  },
+  mounted() {
+    this.initScrollAnimations();
+  },
+  methods: {
+    submitForm() {
+      // Handle form submission
+      console.log('Form submitted:', this.formData);
+      // Add your form submission logic here
+    },
+    initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.section-title, .info-card, .contact-form')
+        .forEach(el => observer.observe(el));
+    }
+  }
 };
 </script>
 
 <style scoped>
 #contact-us {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-  background-color: #f9f9f9;
-  text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 /* Header Section */
@@ -102,88 +230,254 @@ export default {
 
 /* Hero Section */
 .contact-hero {
-  padding: 50px;
-  color: #000;
-  background: linear-gradient(135deg, #ffcc00, #ffe600);
-}
-
-.contact-hero h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.contact-hero p {
-  font-size: 18px;
-}
-
-/* Contact Methods Section */
-.contact-methods {
+  height: 50vh;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+  background-size: cover;
+  background-position: center;
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 40px;
-  background: #fff;
+  text-align: center;
 }
 
-.contact-card {
-  background: #ffe600;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: white;
 }
 
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+.animated-title {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
 }
 
-.contact-card h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
+.hero-subtitle {
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.3s forwards;
 }
 
-.contact-card p {
-  font-size: 16px;
-  margin-bottom: 10px;
+/* Contact Section */
+.contact-section {
+  padding: 6rem 2rem;
+  background: #ffffff;
 }
 
-.contact-info {
-  font-size: 16px;
-  font-weight: bold;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.contact-link {
-  font-size: 16px;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
+/* Info Cards */
+.info-cards {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.contact-link:hover {
-  color: #444;
+.info-card {
+  background: #000000;
+  color: #ffffff;
+  padding: 2rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-.social-links {
+.info-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(253, 187, 48, 0.2);
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  background: #FDBB30;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.social-link {
-  font-size: 16px;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s;
+.icon-wrapper i {
+  font-size: 1.5rem;
+  color: #000000;
 }
 
-.social-link:hover {
-  color: #444;
+/* Social Icons */
+.social-connect {
+  margin-top: 3rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  background: #000000;
+  color: #FDBB30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) rotate(360deg);
+  background: #FDBB30;
+  color: #000000;
+}
+
+/* Contact Form */
+.contact-form-wrapper {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  border-color: #FDBB30;
+  box-shadow: 0 0 0 3px rgba(253, 187, 48, 0.2);
+  outline: none;
+}
+
+.submit-button {
+  background: #000000;
+  color: #FDBB30;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.submit-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button i {
+  transition: transform 0.3s ease;
+}
+
+.submit-button:hover i {
+  transform: translateX(5px);
+}
+
+/* Map Section */
+.map-section {
+  height: 400px;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.map-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+}
+
+.direction-button {
+  background: #FDBB30;
+  color: #000000;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.direction-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(253, 187, 48, 0.3);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .animated-title {
+    font-size: 2.5rem;
+  }
+
+  .info-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Visibility Classes */
+.visible {
+  opacity: 1;
+  transform: translateY(0) !important;
 }
 
 /* Footer Section */
