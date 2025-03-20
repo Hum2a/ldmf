@@ -1,17 +1,68 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>LDMF - Modern Vue.js Application</title>
+    <meta name="title" content="LDMF - Modern Vue.js Application">
+    <meta name="description" content="A powerful and responsive web application built with Vue.js, designed for optimal user experience">
+    <meta name="keywords" content="LDMF, Vue.js, web application, JavaScript, frontend">
+    <meta name="author" content="LDMF Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="LDMF - Modern Vue.js Application">
+    <meta property="og:description" content="A powerful and responsive web application built with Vue.js, designed for optimal user experience">
+    <meta property="og:image" content="<%= BASE_URL %>og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourdomain.com/">
+    <meta property="twitter:title" content="LDMF - Modern Vue.js Application">
+    <meta property="twitter:description" content="A powerful and responsive web application built with Vue.js, designed for optimal user experience">
+    <meta property="twitter:image" content="<%= BASE_URL %>og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Favicon and App Icons -->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>LDMF</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= BASE_URL %>apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= BASE_URL %>favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= BASE_URL %>favicon-16x16.png">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="<%= BASE_URL %>site.webmanifest">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#4DBA87">
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>We're sorry but LDMF doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "LDMF",
+        "description": "A powerful and responsive web application built with Vue.js, designed for optimal user experience",
+        "url": "https://yourdomain.com/",
+        "applicationCategory": "WebApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0"
+        }
+      }
+    </script>
   </body>
 </html>
